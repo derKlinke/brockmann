@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/derKlinke/brockmann/compare/v1.0.0...v1.0.1) (2026-03-15)
+
+
+### Bug Fixes
+
+* use current GitHub Actions runtimes ([fa070a4](https://github.com/derKlinke/brockmann/commit/fa070a47dceddd74bfcc14cfe17d9af2c5413c8b))
+
 # 1.0.0 (2026-03-15)
 
 

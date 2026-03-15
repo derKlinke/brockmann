@@ -1,6 +1,6 @@
 {
     "name": "@derklinke/brockmann",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Shared typography and grid system for klinke.studio",
     "repository": {
         "type": "git",
