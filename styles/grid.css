@@ -1,0 +1,139 @@
+.brockmann-grid-shell,
+.brockmann-grid-debug-overlay {
+    --grid-guide-color: color-mix(in oklab, var(--ral-9007) 52%, transparent);
+    --grid-guide-line: var(--grid-guide-color);
+    --grid-guide-hatch-color: var(--grid-guide-color);
+    --grid-guide-hatch-size: 14px;
+    --grid-guide-line-width: 1.25px;
+    --grid-guide-dot-size: 14px;
+    --grid-guide-hatch-mask-col: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%3Cpath%20d%3D%22M-4%20-4%20L14%2014%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%220.5%206%22/%3E%3C/svg%3E");
+    --grid-guide-hatch-mask-row: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%3Cpath%20d%3D%22M-4%2014%20L14%20-4%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%220.5%206%22/%3E%3C/svg%3E");
+    --grid-guide-line-mask-col: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%222%22%20height%3D%2214%22%20viewBox%3D%220%200%202%2014%22%3E%3Cpath%20d%3D%22M1%20-4%20L1%2018%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%220.5%206%22/%3E%3C/svg%3E");
+    --grid-guide-line-mask-row: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2214%22%20height%3D%222%22%20viewBox%3D%220%200%2014%202%22%3E%3Cpath%20d%3D%22M-4%201%20L18%201%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%220.5%206%22/%3E%3C/svg%3E");
+}
+
+.brockmann-grid-shell {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.brockmann-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    gap: var(--grid-gutter);
+    grid-template-columns: repeat(var(--brockmann-grid-columns-base, 1), minmax(0, 1fr));
+}
+
+.brockmann-grid-item {
+    min-width: 0;
+}
+
+.brockmann-grid-item--responsive {
+    grid-column: var(--brockmann-grid-column-base, auto);
+    grid-row: var(--brockmann-grid-row-base, auto);
+}
+
+@media (min-width: 48rem) {
+    .brockmann-grid {
+        gap: var(--grid-gutter-wide);
+        grid-template-columns: repeat(var(--brockmann-grid-columns-md, var(--brockmann-grid-columns-base, 1)), minmax(0, 1fr));
+    }
+
+    .brockmann-grid--subgrid {
+        grid-template-columns: subgrid;
+    }
+
+    .brockmann-grid-item--responsive {
+        grid-column: var(--brockmann-grid-column-md, var(--brockmann-grid-column-base, auto));
+        grid-row: var(--brockmann-grid-row-md, var(--brockmann-grid-row-base, auto));
+    }
+}
+
+.brockmann-grid-debug-overlay {
+    position: absolute;
+    inset: 0 auto auto 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 120ms ease,
+        visibility 0s linear 120ms;
+}
+
+html[data-brockmann-grid-debug="on"] .brockmann-grid-debug-overlay {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.brockmann-grid-debug-overlay__hatches,
+.brockmann-grid-debug-overlay__lines {
+    position: absolute;
+    inset: 0;
+}
+
+.brockmann-grid-debug-overlay__hatches {
+    z-index: 0;
+}
+
+.brockmann-grid-debug-overlay__lines {
+    z-index: 1;
+}
+
+.brockmann-grid-guide-line {
+    position: absolute;
+    box-sizing: border-box;
+    background-color: var(--grid-guide-line);
+    -webkit-mask-image: var(--grid-guide-line-mask);
+    mask-image: var(--grid-guide-line-mask);
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: var(--grid-guide-dot-size) var(--grid-guide-dot-size);
+    mask-size: var(--grid-guide-dot-size) var(--grid-guide-dot-size);
+}
+
+.brockmann-grid-guide-line--col {
+    width: var(--grid-guide-line-width);
+    --grid-guide-line-mask: var(--grid-guide-line-mask-col);
+    -webkit-mask-size: 2px var(--grid-guide-dot-size);
+    mask-size: 2px var(--grid-guide-dot-size);
+}
+
+.brockmann-grid-guide-line--row {
+    height: var(--grid-guide-line-width);
+    --grid-guide-line-mask: var(--grid-guide-line-mask-row);
+    -webkit-mask-size: var(--grid-guide-dot-size) 2px;
+    mask-size: var(--grid-guide-dot-size) 2px;
+}
+
+.brockmann-grid-gutter-fill {
+    position: absolute;
+    box-sizing: border-box;
+    background-color: var(--grid-guide-hatch-color);
+    -webkit-mask-image: var(--grid-guide-hatch-mask);
+    mask-image: var(--grid-guide-hatch-mask);
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: var(--grid-guide-hatch-size) var(--grid-guide-hatch-size);
+    mask-size: var(--grid-guide-hatch-size) var(--grid-guide-hatch-size);
+}
+
+.brockmann-grid-gutter-fill--row {
+    --grid-guide-hatch-mask: var(--grid-guide-hatch-mask-row);
+}
+
+.brockmann-grid-gutter-fill--col {
+    --grid-guide-hatch-mask: var(--grid-guide-hatch-mask-col);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brockmann-grid-debug-overlay {
+        transition: none;
+    }
+}

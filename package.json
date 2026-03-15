@@ -1,0 +1,17 @@
+{
+    "name": "@derklinke/brockmann",
+    "version": "0.1.0",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./rehype": "./src/rehype-typo-classes.ts",
+        "./styles/tokens.css": "./styles/tokens.css",
+        "./styles/core.css": "./styles/core.css",
+        "./styles/grid.css": "./styles/grid.css",
+        "./styles/presets/site.css": "./styles/presets/site.css",
+        "./styles/presets/helvetica.css": "./styles/presets/helvetica.css"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0"
+    }
+}

@@ -1,0 +1,152 @@
+[data-typo-root] {
+    color: var(--typo-body-color, currentColor);
+    font-family: var(--typo-font-body, inherit);
+}
+
+[data-typo-root] > :first-child {
+    margin-top: 0;
+}
+
+[data-typo-root] > :last-child {
+    margin-bottom: 0;
+}
+
+[data-typo-root] a {
+    color: var(--typo-link-color, currentColor);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+[data-typo-root] a:visited {
+    color: var(--typo-link-visited-color, var(--typo-link-color, currentColor));
+}
+
+[data-typo-root] a:hover {
+    color: var(--typo-link-hover-color, var(--typo-link-color, currentColor));
+}
+
+.typo-heading-1 {
+    --typo-heading-size: var(--typo-heading-1-size);
+    --typo-heading-top: var(--typo-heading-1-top);
+    --typo-heading-bottom: var(--typo-heading-1-bottom);
+}
+
+.typo-heading-2 {
+    --typo-heading-size: var(--typo-heading-2-size);
+    --typo-heading-top: var(--typo-heading-2-top);
+    --typo-heading-bottom: var(--typo-heading-2-bottom);
+}
+
+.typo-heading-3 {
+    --typo-heading-size: var(--typo-heading-3-size);
+    --typo-heading-top: var(--typo-heading-3-top);
+    --typo-heading-bottom: var(--typo-heading-3-bottom);
+}
+
+.typo-heading-4 {
+    --typo-heading-size: var(--typo-heading-4-size);
+    --typo-heading-top: var(--typo-heading-4-top);
+    --typo-heading-bottom: var(--typo-heading-4-bottom);
+}
+
+.typo-heading-5 {
+    --typo-heading-size: var(--typo-heading-5-size);
+    --typo-heading-top: var(--typo-heading-5-top);
+    --typo-heading-bottom: var(--typo-heading-5-bottom);
+}
+
+.typo-heading-6 {
+    --typo-heading-size: var(--typo-heading-6-size);
+    --typo-heading-top: var(--typo-heading-6-top);
+    --typo-heading-bottom: var(--typo-heading-6-bottom);
+}
+
+.typo-heading {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: var(--typo-heading-top) 0 var(--typo-heading-bottom);
+    color: var(--typo-heading-color, currentColor);
+    font-family: var(--typo-font-heading, var(--typo-font-body, inherit));
+    font-size: var(--typo-heading-size);
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1;
+    text-transform: lowercase;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+}
+
+.typo-heading-snap-grid-bottom {
+    line-height: var(--lh-none, 1) !important;
+    transform: translateY(0.118em);
+    transform-origin: left bottom;
+}
+
+.typo-body {
+    display: block;
+    max-width: var(--typo-measure, 75%);
+    margin: 0 0 var(--typo-paragraph-space);
+    color: inherit;
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-base-size);
+    font-weight: 400;
+    line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
+    text-align: start;
+    overflow-wrap: normal;
+    text-wrap: wrap;
+    hanging-punctuation: first last;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-last: always;
+    hyphenate-limit-zone: 8%;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.typo-list {
+    display: block;
+    max-width: var(--typo-measure, 75%);
+    list-style: disc;
+    list-style-position: outside;
+    margin: var(--typo-paragraph-space) 0;
+    padding-left: var(--typo-baseline-grid);
+}
+
+.typo-list-ordered {
+    list-style-type: decimal;
+}
+
+.typo-list-item {
+    color: inherit;
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-base-size);
+    font-weight: 400;
+    line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
+    margin-bottom: calc(var(--typo-paragraph-space) * 0.5);
+}
+
+.typo-list-item:last-child {
+    margin-bottom: 0;
+}
+
+.typo-figure {
+    display: block;
+    max-width: var(--typo-measure, 75%);
+    margin: var(--typo-figure-space) 0;
+}
+
+.typo-figure-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.typo-figure-caption {
+    display: block;
+    margin-top: var(--typo-caption-gap);
+    color: var(--typo-caption-color, inherit);
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-caption-size);
+    line-height: calc(var(--typo-caption-line-height) / var(--typo-caption-size));
+    text-align: right;
+}

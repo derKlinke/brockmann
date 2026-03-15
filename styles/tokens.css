@@ -1,0 +1,65 @@
+:root {
+    --brockmann-font-body:
+        "Berkeley Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono",
+        "Courier New", monospace;
+    --brockmann-font-mono:
+        "Berkeley Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono",
+        "Courier New", monospace;
+    --brockmann-font-heading: "PP Frama", "Helvetica", "Arial", sans-serif;
+    --brockmann-color-ral-9005: #0c0d0f;
+    --brockmann-color-ral-8022: #2f3233;
+    --brockmann-color-ral-9007: #71706d;
+    --brockmann-color-ral-9016: #f5f5f5;
+
+    --body-font: var(--brockmann-font-body);
+    --mono-font: var(--brockmann-font-mono);
+    --heading-font: var(--brockmann-font-heading);
+    --ral-9005: var(--brockmann-color-ral-9005);
+    --ral-8022: var(--brockmann-color-ral-8022);
+    --ral-9007: var(--brockmann-color-ral-9007);
+    --ral-9016: var(--brockmann-color-ral-9016);
+}
+
+@utility text-ral-9005 {
+    color: var(--ral-9005);
+}
+
+@utility text-ral-8022 {
+    color: var(--ral-8022);
+}
+
+@utility text-ral-9007 {
+    color: var(--ral-9007);
+}
+
+@utility text-ral-9016 {
+    color: var(--ral-9016);
+}
+
+@utility bg-ral-9005 {
+    background-color: var(--ral-9005);
+}
+
+@utility bg-ral-8022 {
+    background-color: var(--ral-8022);
+}
+
+@utility bg-ral-9007 {
+    background-color: var(--ral-9007);
+}
+
+@utility bg-ral-9016 {
+    background-color: var(--ral-9016);
+}
+
+@utility bg-ral-9016-30 {
+    background-color: color-mix(in oklab, var(--ral-9016) 30%, transparent);
+}
+
+@utility border-ral-9007 {
+    border-color: var(--ral-9007);
+}
+
+@utility border-ral-9016 {
+    border-color: var(--ral-9016);
+}
