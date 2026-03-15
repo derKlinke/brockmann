@@ -2,6 +2,10 @@
 
 Shared typography and grid primitives extracted from `klinke.studio`.
 
+Named after Josef Muller-Brockmann, the Swiss graphic designer whose book
+_Grid Systems in Graphic Design_ remains a canonical reference for editorial
+grid construction and typographic discipline.
+
 ## Includes
 
 - `TypoRoot`, `TypoBody`, `TypoList`, `TypoListItem`, `TypoFigure`
@@ -62,6 +66,17 @@ export function Example() {
 - headings lowercase by default and can be disabled globally via `lowercaseHeadings={false}` on `TypoRoot`
 - the grid debug runtime owns overlay state, persistence, and toggle synchronization
 - `TypoFigure` is the shared figure/image wrapper for package-owned spacing
+
+## Current rules
+
+- package math is the source of truth for type metrics; do not hand-edit generated preset numbers
+- generated site preset CSS carries the default site metrics, while `TypoRoot` still supports inline var injection for dynamic/specimen cases
+- the static site preset should prefer generated CSS over app-level root style injection
+- heading top margins are canonical package behavior and must not be zeroed by default package selectors
+- snapped headings only change bottom/baseline treatment; snapping must not change heading top spacing
+- Brockmann heading text-transform defaults to lowercase at the root config level, not via per-heading overrides
+- grid debug state is owned by the runtime and stays synchronized across overlay rendering and toggle UI
+- grid/layout helpers normalize inline style keys to valid CSS property names before serialization
 
 ## Source layout
 
