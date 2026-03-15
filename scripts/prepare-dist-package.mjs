@@ -23,8 +23,8 @@ const publishPackage = {
             import: "./index.js",
         },
         "./rehype": {
-            types: "./rehype-typo-classes.d.ts",
-            import: "./rehype-typo-classes.js",
+            types: "./rehype.d.ts",
+            import: "./rehype.js",
         },
         "./styles/tokens.css": "./styles/tokens.css",
         "./styles/core.css": "./styles/core.css",
@@ -35,8 +35,8 @@ const publishPackage = {
     files: [
         "index.js",
         "index.d.ts",
-        "rehype-typo-classes.js",
-        "rehype-typo-classes.d.ts",
+        "rehype.js",
+        "rehype.d.ts",
         "styles",
         "README.md",
         "LICENSE",

@@ -9,7 +9,7 @@ import {
     resolveGridColumns,
     type GridContainerOptions,
     type GridItemOptions,
-} from "./grid-shared";
+} from "./shared";
 
 type GridTag = "article" | "aside" | "div" | "footer" | "header" | "nav" | "section";
 
@@ -42,7 +42,7 @@ export function GridBase({
         subgrid,
     });
     const gridStyle = {
-        ...getGridContainerStyle({ columns: resolvedColumns }),
+        ...getGridContainerStyle({ columns: resolvedColumns, subgrid }),
         ...style,
     } as React.CSSProperties;
 

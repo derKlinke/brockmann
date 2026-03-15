@@ -8,7 +8,7 @@ import {
     GRID_DEBUG_OVERLAY_ID,
     GRID_DEBUG_TOGGLE_SELECTOR,
     GRID_SHELL_SELECTOR,
-} from "./grid-debug-constants";
+} from "./constants";
 import {
     addHatch,
     addLine,
@@ -18,7 +18,7 @@ import {
     paintScene,
     updateResizeObservers,
     type GridMetrics,
-} from "./grid-debug-geometry";
+} from "./geometry";
 
 export interface GridDebugController {
     renderAll: () => void;
@@ -42,6 +42,7 @@ export function ensureGridDebug(): GridDebugController | null {
     let raf = 0;
     let resizeObserver: ResizeObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
+    let observedBody: HTMLElement | null = null;
 
     function isEnabled(): boolean {
         return document.documentElement.getAttribute(GRID_DEBUG_HTML_ATTR) === GRID_DEBUG_ENABLED_VALUE;
@@ -144,27 +145,40 @@ export function ensureGridDebug(): GridDebugController | null {
     }
 
     function setupObservers(): void {
-        resizeObserver = new ResizeObserver(() => {
-            if (isEnabled()) scheduleRender();
-        });
-        mutationObserver = new MutationObserver(() => {
-            bindToggles();
-            syncToggleButtons();
-            if (isEnabled()) scheduleRender();
-        });
+        if (!resizeObserver) {
+            resizeObserver = new ResizeObserver(() => {
+                if (isEnabled()) scheduleRender();
+            });
+        }
 
+        if (!mutationObserver) {
+            mutationObserver = new MutationObserver(() => {
+                bindToggles();
+                syncToggleButtons();
+                if (isEnabled()) scheduleRender();
+            });
+        }
+
+        if (!(document.body instanceof HTMLElement) || observedBody === document.body) return;
+
+        mutationObserver.disconnect();
         mutationObserver.observe(document.body, {
             childList: true,
             subtree: true,
             attributes: true,
             attributeFilter: ["class", "style"],
         });
+        observedBody = document.body;
+    }
+
+    function refreshBindings(): void {
+        setupObservers();
+        bindToggles();
+        syncToggleButtons();
     }
 
     restorePersistedState();
-    bindToggles();
-    syncToggleButtons();
-    setupObservers();
+    refreshBindings();
 
     window.addEventListener("resize", () => {
         if (isEnabled()) scheduleRender();
@@ -184,8 +198,11 @@ export function ensureGridDebug(): GridDebugController | null {
     }
 
     document.addEventListener("astro:page-load", () => {
-        bindToggles();
-        syncToggleButtons();
+        refreshBindings();
+        if (isEnabled()) scheduleRender();
+    });
+    document.addEventListener("astro:after-swap", () => {
+        refreshBindings();
         if (isEnabled()) scheduleRender();
     });
 

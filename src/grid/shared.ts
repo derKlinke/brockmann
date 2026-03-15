@@ -59,6 +59,7 @@ export function resolveGridColumns(
 
 export function getGridContainerStyle({
     columns = DEFAULT_GRID_COLUMNS,
+    subgrid = false,
 }: GridContainerOptions): Record<string, StyleValue> {
     const normalizedColumns = normalizeResponsive(columns);
     const style: Record<string, StyleValue> = {};
@@ -72,6 +73,10 @@ export function getGridContainerStyle({
         style["--brockmann-grid-columns"] = normalizedColumns.md;
     } else if (normalizedColumns.base != null) {
         style["--brockmann-grid-columns"] = normalizedColumns.base;
+    }
+
+    if (subgrid) {
+        style.gridColumn = "1 / -1";
     }
 
     return style;

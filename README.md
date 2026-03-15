@@ -53,11 +53,21 @@ export function Example() {
 ## Defaults
 
 - neutral text/font tokens live in `styles/tokens.css`
-- grid gutters derive from the baseline grid
+- default Brockmann base size is `13px`
+- grid gutters default to `1 * baseline grid`
 - row-only grids default to a single column across breakpoints
+- computed type-scale metrics come from Brockmann math (`TypoRoot`/`createTypoConfig`) and the checked-in site preset CSS is generated from that same source of truth
+- the visual heading scale uses seven internal steps (`0`…`6`) for six semantic headings, so `h6` sits at body size and `h1`…`h5` each skip one visual step
 - heading baseline snapping is opt-in via `snapToGridBottom`
+- headings lowercase by default and can be disabled globally via `lowercaseHeadings={false}` on `TypoRoot`
 - the grid debug runtime owns overlay state, persistence, and toggle synchronization
 - `TypoFigure` is the shared figure/image wrapper for package-owned spacing
+
+## Source layout
+
+- `src/typo`: typography components and token math
+- `src/grid`: grid components, shared placement helpers, and debug runtime internals
+- `src/rehype`: markdown-to-Brockmann class mapping
 
 ## Release
 

@@ -10,7 +10,7 @@
     "type": "module",
     "exports": {
         ".": "./src/index.ts",
-        "./rehype": "./src/rehype-typo-classes.ts",
+        "./rehype": "./src/rehype/typo-classes.ts",
         "./styles/tokens.css": "./styles/tokens.css",
         "./styles/core.css": "./styles/core.css",
         "./styles/grid.css": "./styles/grid.css",
@@ -25,9 +25,10 @@
     ],
     "scripts": {
         "clean": "rm -rf dist",
-        "build:js": "esbuild src/index.ts --bundle --format=esm --platform=neutral --outfile=dist/index.js --external:react && esbuild src/rehype-typo-classes.ts --bundle --format=esm --platform=node --outfile=dist/rehype-typo-classes.js",
+        "build:js": "esbuild src/index.ts --bundle --format=esm --platform=neutral --outfile=dist/index.js --external:react && esbuild src/rehype/typo-classes.ts --bundle --format=esm --platform=node --outfile=dist/rehype.js",
         "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
-        "build:css": "mkdir -p dist/styles/presets && cp styles/*.css dist/styles/ && cp styles/presets/*.css dist/styles/presets/",
+        "generate:presets": "node scripts/generate-presets.mjs",
+        "build:css": "npm run generate:presets && mkdir -p dist/styles/presets && cp styles/*.css dist/styles/ && cp styles/presets/site.css dist/styles/presets/site.css && cp styles/presets/helvetica.css dist/styles/presets/helvetica.css",
         "build:package": "node scripts/prepare-dist-package.mjs",
         "build": "npm run clean && npm run build:types && npm run build:js && npm run build:css && npm run build:package",
         "typecheck": "tsc -p tsconfig.json --noEmit",

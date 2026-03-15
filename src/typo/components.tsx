@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
     createTypoConfig,
+    DEFAULT_LOWERCASE_HEADINGS,
     DEFAULT_TYPO_BASE_SIZE,
     DEFAULT_TYPO_R,
     getTypoVarMap,
@@ -14,6 +15,8 @@ export interface TypoRootProps extends React.HTMLAttributes<HTMLElement> {
     as?: TypoTag;
     baseSize?: number;
     r?: number;
+    lowercaseHeadings?: boolean;
+    injectVars?: boolean;
 }
 
 export interface TypoHeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
@@ -44,16 +47,20 @@ export function TypoRoot({
     as = "div",
     baseSize = DEFAULT_TYPO_BASE_SIZE,
     r = DEFAULT_TYPO_R,
+    lowercaseHeadings = DEFAULT_LOWERCASE_HEADINGS,
+    injectVars = true,
     className = "",
     style,
     ...rest
 }: TypoRootProps): React.ReactElement {
     const Tag = as as React.ElementType;
-    const config = createTypoConfig({ baseSize, r });
-    const mergedStyle = {
-        ...getTypoVarMap(config),
-        ...style,
-    } as React.CSSProperties;
+    const config = createTypoConfig({ baseSize, r, lowercaseHeadings });
+    const mergedStyle = injectVars
+        ? ({
+              ...getTypoVarMap(config),
+              ...style,
+          } as React.CSSProperties)
+        : style;
 
     return (
         <Tag

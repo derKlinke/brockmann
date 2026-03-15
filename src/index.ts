@@ -17,8 +17,8 @@ export {
     type TypoListItemProps,
     type TypoListProps,
     type TypoRootProps,
-} from "./components";
-export { Grid, GridBase, GridItem, type GridItemProps, type GridProps } from "./grid";
+} from "./typo/components";
+export { Grid, GridBase, GridItem, type GridItemProps, type GridProps } from "./grid/components";
 export {
     DEFAULT_GRID_COLUMNS,
     DEFAULT_ROWS_ONLY_GRID_COLUMNS,
@@ -33,10 +33,11 @@ export {
     type GridLine,
     type GridSpan,
     type ResponsiveValue,
-} from "./grid-shared";
-export { ensureGridDebug, type GridDebugController } from "./grid-debug-runtime";
+} from "./grid/shared";
+export { ensureGridDebug, type GridDebugController } from "./grid/debug/runtime";
 export {
     createTypoConfig,
+    DEFAULT_LOWERCASE_HEADINGS,
     DEFAULT_GRID_GUTTER_MULTIPLIER,
     DEFAULT_GRID_GUTTER_WIDE_MULTIPLIER,
     DEFAULT_TYPO_BASE_SIZE,
@@ -49,4 +50,10 @@ export {
     type TypoConfig,
     type TypoHeadingLevel,
     type TypoHeadingMetrics,
-} from "./system";
+} from "./typo/system";
+export {
+    renderTypoPresetVarsCss,
+    SITE_TYPO_PRESET_CLASS,
+    SITE_TYPO_PRESET_CONFIG,
+    SITE_TYPO_PRESET_SELECTOR,
+} from "./typo/presets";

@@ -1,6 +1,7 @@
 export interface TypoBaseConfig {
     baseSize: number;
     r: number;
+    lowercaseHeadings?: boolean;
 }
 
 export type TypoHeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
@@ -23,26 +24,32 @@ export interface TypoConfig extends TypoBaseConfig {
     captionLineHeight: number;
     gridGutterMultiplier: number;
     gridGutterWideMultiplier: number;
-    steps: Record<1 | 2 | 3 | 4 | 5 | 6, number>;
+    lowercaseHeadings: boolean;
+    steps: Record<0 | 1 | 2 | 3 | 4 | 5 | 6, number>;
     headings: Record<TypoHeadingLevel, TypoHeadingMetrics>;
     vars: Record<string, string>;
 }
 
-export const DEFAULT_TYPO_BASE_SIZE = 14;
+export const DEFAULT_TYPO_BASE_SIZE = 13;
 export const DEFAULT_TYPO_R = 1.33;
-export const DEFAULT_GRID_GUTTER_MULTIPLIER = 2;
-export const DEFAULT_GRID_GUTTER_WIDE_MULTIPLIER = 2;
+export const DEFAULT_LOWERCASE_HEADINGS = true;
+export const DEFAULT_GRID_GUTTER_MULTIPLIER = 1;
+export const DEFAULT_GRID_GUTTER_WIDE_MULTIPLIER = 1;
 
-const headingStepByLevel: Record<TypoHeadingLevel, 1 | 2 | 3 | 4 | 5 | 6> = {
+const headingStepByLevel: Record<TypoHeadingLevel, 0 | 1 | 2 | 3 | 4 | 5 | 6> = {
     1: 6,
-    2: 5,
-    3: 4,
-    4: 3,
-    5: 2,
-    6: 1,
+    2: 4,
+    3: 3,
+    4: 2,
+    5: 1,
+    6: 0,
 };
 
-export function createTypoConfig({ baseSize, r }: TypoBaseConfig): TypoConfig {
+export function createTypoConfig({
+    baseSize,
+    r,
+    lowercaseHeadings = DEFAULT_LOWERCASE_HEADINGS,
+}: TypoBaseConfig): TypoConfig {
     const alpha = 1 / r;
     const lambda = 1 / r;
     const bodyLineHeight = baseSize * r ** 2;
@@ -50,6 +57,7 @@ export function createTypoConfig({ baseSize, r }: TypoBaseConfig): TypoConfig {
     const paragraphSpace = alpha * baselineGrid;
     const captionSize = baseSize / r ** 2;
     const steps = {
+        0: baseSize,
         1: baseSize * r,
         2: baseSize * r ** 2,
         3: baseSize * r ** 3,
@@ -80,6 +88,7 @@ export function createTypoConfig({ baseSize, r }: TypoBaseConfig): TypoConfig {
         captionLineHeight: baselineGrid,
         gridGutterMultiplier: DEFAULT_GRID_GUTTER_MULTIPLIER,
         gridGutterWideMultiplier: DEFAULT_GRID_GUTTER_WIDE_MULTIPLIER,
+        lowercaseHeadings,
         steps,
         headings,
         vars: {},
@@ -124,8 +133,10 @@ function buildTypoVarMap(config: Omit<TypoConfig, "vars"> | TypoConfig): Record<
         "--typo-caption-gap": `${config.captionGap}px`,
         "--typo-caption-size": `${config.captionSize}px`,
         "--typo-caption-line-height": `${config.captionLineHeight}px`,
+        "--typo-heading-text-transform": config.lowercaseHeadings ? "lowercase" : "none",
         "--grid-gutter": `calc(${config.baselineGrid}px * ${config.gridGutterMultiplier})`,
         "--grid-gutter-wide": `calc(${config.baselineGrid}px * ${config.gridGutterWideMultiplier})`,
+        "--typo-step-0": `${config.steps[0]}px`,
         "--typo-step-1": `${config.steps[1]}px`,
         "--typo-step-2": `${config.steps[2]}px`,
         "--typo-step-3": `${config.steps[3]}px`,

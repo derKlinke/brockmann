@@ -5,7 +5,7 @@ import {
     GRID_ROW_GROUP_EPSILON,
     GRID_ROWS_ONLY_ATTR,
     GRID_SHELL_SELECTOR,
-} from "./grid-debug-constants";
+} from "./constants";
 
 export interface GridBounds {
     left: number;
