@@ -57,8 +57,10 @@ export function Example() {
 - row-only grids default to a single column across breakpoints
 - heading baseline snapping is opt-in via `snapToGridBottom`
 - the grid debug runtime owns overlay state, persistence, and toggle synchronization
+- `TypoFigure` is the shared figure/image wrapper for package-owned spacing
 
 ## Release
 
-- `npm test` builds the package and runs the unit suite
-- pushes to `main` trigger semantic-release, GitHub releases, and npm publish with provenance
+- the repository resolves source files directly so the website can keep using it as a live workspace/submodule
+- `npm test` builds the publishable `dist` package and runs the unit suite
+- pushes to `main` trigger semantic-release, GitHub releases, and npm publish with provenance from `dist`

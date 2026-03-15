@@ -8,22 +8,14 @@
     },
     "license": "MIT",
     "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js"
-        },
-        "./rehype": {
-            "types": "./dist/rehype-typo-classes.d.ts",
-            "import": "./dist/rehype-typo-classes.js"
-        },
-        "./styles/tokens.css": "./dist/styles/tokens.css",
-        "./styles/core.css": "./dist/styles/core.css",
-        "./styles/grid.css": "./dist/styles/grid.css",
-        "./styles/presets/site.css": "./dist/styles/presets/site.css",
-        "./styles/presets/helvetica.css": "./dist/styles/presets/helvetica.css"
+        ".": "./src/index.ts",
+        "./rehype": "./src/rehype-typo-classes.ts",
+        "./styles/tokens.css": "./styles/tokens.css",
+        "./styles/core.css": "./styles/core.css",
+        "./styles/grid.css": "./styles/grid.css",
+        "./styles/presets/site.css": "./styles/presets/site.css",
+        "./styles/presets/helvetica.css": "./styles/presets/helvetica.css"
     },
     "files": [
         "dist",
@@ -36,10 +28,11 @@
         "build:js": "esbuild src/index.ts --bundle --format=esm --platform=neutral --outfile=dist/index.js --external:react && esbuild src/rehype-typo-classes.ts --bundle --format=esm --platform=node --outfile=dist/rehype-typo-classes.js",
         "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
         "build:css": "mkdir -p dist/styles/presets && cp styles/*.css dist/styles/ && cp styles/presets/*.css dist/styles/presets/",
-        "build": "npm run clean && npm run build:types && npm run build:js && npm run build:css",
+        "build:package": "node scripts/prepare-dist-package.mjs",
+        "build": "npm run clean && npm run build:types && npm run build:js && npm run build:css && npm run build:package",
         "typecheck": "tsc -p tsconfig.json --noEmit",
         "test": "npm run build && node --test tests/**/*.test.mjs",
-        "pack:check": "npm pack --dry-run"
+        "pack:check": "npm run build && npm pack ./dist --dry-run"
     },
     "engines": {
         "node": ">=22"
