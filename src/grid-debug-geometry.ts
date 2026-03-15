@@ -390,7 +390,7 @@ function findAncestorColumnSource(
 ): GridMetrics | null {
     let node = shell.parentElement?.closest?.(GRID_SHELL_SELECTOR) ?? null;
 
-    while (node) {
+    while (node instanceof HTMLElement) {
         const metrics = metricsByShell.get(node);
         if (metrics?.isColumnSource) return metrics;
         node = node.parentElement?.closest?.(GRID_SHELL_SELECTOR) ?? null;

@@ -32,7 +32,7 @@ export function GridBase({
     style,
     ...rest
 }: GridProps): React.ReactElement {
-    const Tag = as as keyof React.JSX.IntrinsicElements;
+    const Tag = as as React.ElementType;
     const resolvedColumns = resolveGridColumns(columns, rowsOnly);
     const gridClassName = getGridContainerClassName({
         className,
@@ -66,7 +66,7 @@ export function GridItem({
     style,
     ...rest
 }: GridItemProps): React.ReactElement {
-    const Tag = as as keyof React.JSX.IntrinsicElements;
+    const Tag = as as React.ElementType;
     const itemStyle = {
         ...getGridItemStyle({ columnStart, columnSpan, rowStart, rowSpan }),
         ...style,

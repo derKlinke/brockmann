@@ -48,7 +48,7 @@ export function TypoRoot({
     style,
     ...rest
 }: TypoRootProps): React.ReactElement {
-    const Tag = as as keyof React.JSX.IntrinsicElements;
+    const Tag = as as React.ElementType;
     const config = createTypoConfig({ baseSize, r });
     const mergedStyle = {
         ...getTypoVarMap(config),
@@ -71,7 +71,7 @@ export function TypoHeading({
     snapToGridBottom = false,
     ...rest
 }: TypoHeadingProps): React.ReactElement {
-    const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
+    const Tag = `h${level}` as React.ElementType;
 
     return (
         <Tag
@@ -119,7 +119,7 @@ export function TypoList({
     className = "",
     ...rest
 }: TypoListProps): React.ReactElement {
-    const Tag = (ordered ? "ol" : "ul") as keyof React.JSX.IntrinsicElements;
+    const Tag = (ordered ? "ol" : "ul") as React.ElementType;
 
     return (
         <Tag

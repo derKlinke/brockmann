@@ -1,31 +1,64 @@
 # Brockmann
 
-Shared typography and grid system for `klinke.studio`.
+Shared typography and grid primitives extracted from `klinke.studio`.
 
-## Surface
+## Includes
 
 - `TypoRoot`, `TypoBody`, `TypoList`, `TypoListItem`, `TypoFigure`
-- `TypoH1` … `TypoH6`, `TypoHeading`
-- `Grid`, `Grid.Item`
+- `TypoH1` through `TypoH6`
+- `Grid` and `Grid.Item`
 - `ensureGridDebug()`
-- token helpers from `system.ts`
-- CSS entrypoints:
-  - `@derklinke/brockmann/styles/tokens.css`
-  - `@derklinke/brockmann/styles/core.css`
-  - `@derklinke/brockmann/styles/grid.css`
-  - `@derklinke/brockmann/styles/presets/site.css`
-  - `@derklinke/brockmann/styles/presets/helvetica.css`
+- typography token helpers from `system.ts`
+- CSS entrypoints for tokens, core typography, grid styles, and presets
+
+## Install
+
+```bash
+npm install @derklinke/brockmann react
+```
+
+## Usage
+
+```tsx
+import {
+    Grid,
+    TypoBody,
+    TypoH1,
+    TypoRoot,
+} from "@derklinke/brockmann";
+import "@derklinke/brockmann/styles/tokens.css";
+import "@derklinke/brockmann/styles/core.css";
+import "@derklinke/brockmann/styles/grid.css";
+import "@derklinke/brockmann/styles/presets/site.css";
+
+export function Example() {
+    return (
+        <TypoRoot className="typo-preset-site">
+            <Grid>
+                <Grid.Item columnSpan="full">
+                    <TypoH1 snapToGridBottom>Grid systems in graphic design</TypoH1>
+                </Grid.Item>
+                <Grid.Item columnSpan={3}>
+                    <TypoBody>
+                        Brockmann exposes the shared editorial typography and grid contract used on
+                        klinke.studio.
+                    </TypoBody>
+                </Grid.Item>
+            </Grid>
+        </TypoRoot>
+    );
+}
+```
 
 ## Defaults
 
-- canonical neutral text/font tokens live in `styles/tokens.css`
-- site preset keeps Berkeley Mono body + PP Frama heading defaults
-- grid gutter tokens derive from the baseline grid
-- row-only Brockmann grids default to one column across breakpoints
-- heading baseline snapping is opt-in through `snapToGridBottom`
-- grid debug runtime owns overlay state, persistence, rendering, and toggle synchronization
+- neutral text/font tokens live in `styles/tokens.css`
+- grid gutters derive from the baseline grid
+- row-only grids default to a single column across breakpoints
+- heading baseline snapping is opt-in via `snapToGridBottom`
+- the grid debug runtime owns overlay state, persistence, and toggle synchronization
 
-## Notes
+## Release
 
-- `TypoFigure` is the shared image/figure wrapper for package-owned figure spacing
-- Astro adapters stay in the site and should remain thin wrappers over this package
+- `npm test` builds the package and runs the unit suite
+- pushes to `main` trigger semantic-release, GitHub releases, and npm publish with provenance
