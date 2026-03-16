@@ -84,6 +84,18 @@ export function Example() {
 - `src/grid`: grid components, shared placement helpers, and debug runtime internals
 - `src/rehype`: markdown-to-Brockmann class mapping
 
+## React/SSR and bundle guidance
+
+- the React components (`Grid`, `Grid.Item`, `TypoRoot`, `Typo*`) are small, forward-ref-enabled
+  primitives intended to compose cleanly with app code
+- for non-React or server-rendered environments (Astro, script templates), prefer the headless
+  helpers such as `getGridContainerStyle`, `getGridItemStyle`, and `getTypoVarMap` to avoid
+  bringing `react` into routes that do not need it
+- `TypoRoot` computes deterministic CSS custom properties from its config; it is safe to
+  render on the server without hydration flicker as long as the same props are used on the client
+- the published npm package exposes both the React surface (`@derklinke/brockmann`) and CSS
+  entrypoints under `@derklinke/brockmann/styles/*` for tree-shakable consumption
+
 ## Release
 
 - the repository resolves source files directly so the website can keep using it as a live workspace/submodule
