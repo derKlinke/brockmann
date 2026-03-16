@@ -43,16 +43,19 @@ export interface TypoFigureProps extends React.HTMLAttributes<HTMLElement> {
     loading?: "eager" | "lazy";
 }
 
-export function TypoRoot({
-    as = "div",
-    baseSize = DEFAULT_TYPO_BASE_SIZE,
-    r = DEFAULT_TYPO_R,
-    lowercaseHeadings = DEFAULT_LOWERCASE_HEADINGS,
-    injectVars = true,
-    className = "",
-    style,
-    ...rest
-}: TypoRootProps): React.ReactElement {
+export const TypoRoot = React.forwardRef<HTMLElement, TypoRootProps>(function TypoRoot(
+    {
+        as = "div",
+        baseSize = DEFAULT_TYPO_BASE_SIZE,
+        r = DEFAULT_TYPO_R,
+        lowercaseHeadings = DEFAULT_LOWERCASE_HEADINGS,
+        injectVars = true,
+        className = "",
+        style,
+        ...rest
+    },
+    ref
+): React.ReactElement {
     const Tag = as as React.ElementType;
     const config = createTypoConfig({ baseSize, r, lowercaseHeadings });
     const mergedStyle = injectVars
@@ -64,112 +67,149 @@ export function TypoRoot({
 
     return (
         <Tag
+            ref={ref as React.Ref<HTMLElement>}
             className={joinClassNames("typo-root", className)}
             data-typo-root
             style={mergedStyle}
             {...rest}
         />
     );
-}
+});
 
-export function TypoHeading({
-    level,
-    className = "",
-    snapToGridBottom = false,
-    ...rest
-}: TypoHeadingProps): React.ReactElement {
-    const Tag = `h${level}` as React.ElementType;
+export const TypoHeading = React.forwardRef<HTMLHeadingElement, TypoHeadingProps>(
+    function TypoHeading({ level, className = "", snapToGridBottom = false, ...rest }, ref) {
+        const Tag = `h${level}` as React.ElementType;
 
-    return (
-        <Tag
-            className={joinClassNames(
-                "typo-heading",
-                `typo-heading-${level}`,
-                snapToGridBottom ? "typo-heading-snap-grid-bottom" : "",
-                className
-            )}
-            {...rest}
-        />
-    );
-}
-
-export function TypoH1(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={1} {...props} />;
-}
-
-export function TypoH2(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={2} {...props} />;
-}
-
-export function TypoH3(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={3} {...props} />;
-}
-
-export function TypoH4(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={4} {...props} />;
-}
-
-export function TypoH5(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={5} {...props} />;
-}
-
-export function TypoH6(props: Omit<TypoHeadingProps, "level">): React.ReactElement {
-    return <TypoHeading level={6} {...props} />;
-}
-
-export function TypoBody({ className = "", ...rest }: TypoBodyProps): React.ReactElement {
-    return <p className={joinClassNames("typo-body", className)} {...rest} />;
-}
-
-export function TypoList({
-    ordered = false,
-    className = "",
-    ...rest
-}: TypoListProps): React.ReactElement {
-    const Tag = (ordered ? "ol" : "ul") as React.ElementType;
-
-    return (
-        <Tag
-            className={joinClassNames("typo-list", ordered ? "typo-list-ordered" : "", className)}
-            {...rest}
-        />
-    );
-}
-
-export function TypoListItem({ className = "", ...rest }: TypoListItemProps): React.ReactElement {
-    return <li className={joinClassNames("typo-list-item", className)} {...rest} />;
-}
-
-export function TypoFigure({
-    src,
-    alt,
-    width,
-    height,
-    caption,
-    className = "",
-    imageClassName = "",
-    captionClassName = "",
-    loading = "lazy",
-    ...rest
-}: TypoFigureProps): React.ReactElement {
-    return (
-        <figure className={joinClassNames("typo-figure", className)} {...rest}>
-            <img
-                className={joinClassNames("typo-figure-image", imageClassName)}
-                src={src}
-                alt={alt}
-                width={width}
-                height={height}
-                loading={loading}
+        return (
+            <Tag
+                ref={ref as React.Ref<HTMLHeadingElement>}
+                className={joinClassNames(
+                    "typo-heading",
+                    `typo-heading-${level}`,
+                    snapToGridBottom ? "typo-heading-snap-grid-bottom" : "",
+                    className
+                )}
+                {...rest}
             />
-            {caption ? (
-                <figcaption className={joinClassNames("typo-figure-caption", captionClassName)}>
-                    {caption}
-                </figcaption>
-            ) : null}
-        </figure>
-    );
-}
+        );
+    }
+);
+
+export const TypoH1 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH1(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={1} {...props} />;
+    }
+);
+
+export const TypoH2 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH2(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={2} {...props} />;
+    }
+);
+
+export const TypoH3 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH3(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={3} {...props} />;
+    }
+);
+
+export const TypoH4 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH4(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={4} {...props} />;
+    }
+);
+
+export const TypoH5 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH5(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={5} {...props} />;
+    }
+);
+
+export const TypoH6 = React.forwardRef<HTMLHeadingElement, Omit<TypoHeadingProps, "level">>(
+    function TypoH6(props, ref): React.ReactElement {
+        return <TypoHeading ref={ref} level={6} {...props} />;
+    }
+);
+
+export const TypoBody = React.forwardRef<HTMLParagraphElement, TypoBodyProps>(
+    function TypoBody({ className = "", ...rest }, ref): React.ReactElement {
+        return (
+            <p
+                ref={ref}
+                className={joinClassNames("typo-body", className)}
+                {...rest}
+            />
+        );
+    }
+);
+
+export const TypoList = React.forwardRef<HTMLElement, TypoListProps>(
+    function TypoList({ ordered = false, className = "", ...rest }, ref): React.ReactElement {
+        const Tag = (ordered ? "ol" : "ul") as React.ElementType;
+
+        return (
+            <Tag
+                ref={ref as React.Ref<HTMLElement>}
+                className={joinClassNames("typo-list", ordered ? "typo-list-ordered" : "", className)}
+                {...rest}
+            />
+        );
+    }
+);
+
+export const TypoListItem = React.forwardRef<HTMLLIElement, TypoListItemProps>(
+    function TypoListItem({ className = "", ...rest }, ref): React.ReactElement {
+        return (
+            <li
+                ref={ref}
+                className={joinClassNames("typo-list-item", className)}
+                {...rest}
+            />
+        );
+    }
+);
+
+export const TypoFigure = React.forwardRef<HTMLElement, TypoFigureProps>(
+    function TypoFigure(
+        {
+            src,
+            alt,
+            width,
+            height,
+            caption,
+            className = "",
+            imageClassName = "",
+            captionClassName = "",
+            loading = "lazy",
+            ...rest
+        },
+        ref
+    ): React.ReactElement {
+        return (
+            <figure
+                ref={ref as React.Ref<HTMLElement>}
+                className={joinClassNames("typo-figure", className)}
+                {...rest}
+            >
+                <img
+                    className={joinClassNames("typo-figure-image", imageClassName)}
+                    src={src}
+                    alt={alt}
+                    width={width}
+                    height={height}
+                    loading={loading}
+                />
+                {caption ? (
+                    <figcaption
+                        className={joinClassNames("typo-figure-caption", captionClassName)}
+                    >
+                        {caption}
+                    </figcaption>
+                ) : null}
+            </figure>
+        );
+    }
+);
 
 function joinClassNames(...values: Array<string | undefined>): string {
     return values.filter(Boolean).join(" ");

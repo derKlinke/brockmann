@@ -21,17 +21,20 @@ export interface GridItemProps extends React.HTMLAttributes<HTMLElement>, GridIt
     as?: GridTag;
 }
 
-export function GridBase({
-    as = "div",
-    className = "",
-    shellClassName = "",
-    columns,
-    rowsOnly = false,
-    subgrid = false,
-    debug = false,
-    style,
-    ...rest
-}: GridProps): React.ReactElement {
+export const GridBase = React.forwardRef<HTMLElement, GridProps>(function GridBase(
+    {
+        as = "div",
+        className = "",
+        shellClassName = "",
+        columns,
+        rowsOnly = false,
+        subgrid = false,
+        debug = false,
+        style,
+        ...rest
+    },
+    ref
+): React.ReactElement {
     const Tag = as as React.ElementType;
     const resolvedColumns = resolveGridColumns(columns, rowsOnly);
     const gridClassName = getGridContainerClassName({
@@ -48,24 +51,19 @@ export function GridBase({
 
     return (
         <Tag
+            ref={ref as React.Ref<HTMLElement>}
             className={gridClassName}
             style={gridStyle}
             {...getGridContainerDataAttributes({ rowsOnly, debug })}
             {...rest}
         />
     );
-}
+});
 
-export function GridItem({
-    as = "div",
-    className = "",
-    columnStart,
-    columnSpan,
-    rowStart,
-    rowSpan,
-    style,
-    ...rest
-}: GridItemProps): React.ReactElement {
+export const GridItem = React.forwardRef<HTMLElement, GridItemProps>(function GridItem(
+    { as = "div", className = "", columnStart, columnSpan, rowStart, rowSpan, style, ...rest },
+    ref
+): React.ReactElement {
     const Tag = as as React.ElementType;
     const itemStyle = {
         ...getGridItemStyle({ columnStart, columnSpan, rowStart, rowSpan }),
@@ -74,6 +72,7 @@ export function GridItem({
 
     return (
         <Tag
+            ref={ref as React.Ref<HTMLElement>}
             className={getGridItemClassName({
                 className,
                 columnStart,
@@ -85,10 +84,12 @@ export function GridItem({
             {...rest}
         />
     );
-}
+});
 
-type GridComponent = typeof GridBase & {
-    Item: typeof GridItem;
+type GridComponent = React.ForwardRefExoticComponent<
+    GridProps & React.RefAttributes<HTMLElement>
+> & {
+    Item: React.ForwardRefExoticComponent<GridItemProps & React.RefAttributes<HTMLElement>>;
 };
 
 export const Grid = Object.assign(GridBase, { Item: GridItem }) as GridComponent;
