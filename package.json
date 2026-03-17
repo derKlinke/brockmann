@@ -12,6 +12,7 @@
         ".": "./src/index.ts",
         "./rehype": "./src/rehype/typo-classes.ts",
         "./styles/tokens.css": "./styles/tokens.css",
+        "./styles/spacing.css": "./styles/spacing.css",
         "./styles/core.css": "./styles/core.css",
         "./styles/grid.css": "./styles/grid.css",
         "./styles/presets/site.css": "./styles/presets/site.css",

@@ -10,8 +10,12 @@
     --typo-paragraph-space: 17.290000000000003px;
     --typo-figure-space: 34.580000000000005px;
     --typo-caption-gap: 13.000000000000002px;
-    --typo-caption-size: 7.349200067838769px;
-    --typo-caption-line-height: 22.995700000000003px;
+    --typo-caption-size: 9.774436090225564px;
+    --typo-caption-line-height: 13px;
+    --typo-meta-size: 9.774436090225564px;
+    --typo-meta-line-height: 13px;
+    --typo-editorial-link-size: 9.774436090225564px;
+    --typo-editorial-link-line-height: 13px;
     --typo-heading-text-transform: lowercase;
     --grid-gutter: calc(22.995700000000003px * 1);
     --grid-gutter-wide: calc(22.995700000000003px * 1);
@@ -47,9 +51,13 @@
     --typo-body-color: var(--ral-8022);
     --typo-heading-color: var(--ral-9005);
     --typo-caption-color: var(--ral-9007);
+    --typo-meta-color: var(--ral-9007);
     --typo-link-color: var(--chart-2);
     --typo-link-visited-color: var(--chart-1);
     --typo-link-hover-color: var(--chart-3);
+    --typo-editorial-link-color: var(--ral-9007);
+    --typo-editorial-link-hover-color: var(--ral-9005);
+    --typo-editorial-link-active-color: var(--ral-9005);
     --typo-font-body: var(--body-font);
     --typo-font-heading: var(--heading-font);
     --typo-measure: 100%;

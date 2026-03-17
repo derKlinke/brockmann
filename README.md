@@ -8,8 +8,13 @@ grid construction and typographic discipline.
 
 ## Includes
 
-- `TypoRoot`, `TypoBody`, `TypoList`, `TypoListItem`, `TypoFigure`
-- `TypoH1` through `TypoH6`
+- `TypoRoot`
+- `TypoHeading`, `TypoH1` through `TypoH6`
+- `TypoBody`, `TypoCaption`, `TypoMeta`
+- `TypoList`, `TypoListItem`
+- `Spacer`
+- `TypoFigure`
+- `TypoEditorialLink`
 - `Grid` and `Grid.Item`
 - `ensureGridDebug()`
 - typography token helpers from `system.ts`
@@ -31,6 +36,7 @@ import {
     TypoRoot,
 } from "@derklinke/brockmann";
 import "@derklinke/brockmann/styles/tokens.css";
+import "@derklinke/brockmann/styles/spacing.css";
 import "@derklinke/brockmann/styles/core.css";
 import "@derklinke/brockmann/styles/grid.css";
 import "@derklinke/brockmann/styles/presets/site.css";
@@ -54,6 +60,225 @@ export function Example() {
 }
 ```
 
+## Typography system
+
+Brockmann exposes a small editorial type system. Each primitive maps to a specific
+CSS class and shared spacing contract; the package is intentionally narrow rather than
+theme-variant-heavy.
+
+### 1. Establish the root
+
+`TypoRoot` is the single typography context. It computes the CSS custom properties used
+by every `Typo*` primitive.
+
+```tsx
+<TypoRoot className="typo-preset-site">
+    {/* typography primitives */}
+</TypoRoot>
+```
+
+Key props:
+
+- `baseSize`: body text size in px; default `13`
+- `r`: scale ratio; default `1.33`
+- `lowercaseHeadings`: applies lowercase heading transform at the root; default `true`
+- `injectVars`: inline-inject computed CSS variables; default `true`
+- `as`: semantic wrapper tag such as `article`, `section`, `nav`, or `div`
+
+Use `className="typo-preset-site"` when you want the checked-in site preset. Use custom
+`baseSize`/`r` props when building a specimen, preview, or alternate scale.
+
+### 2. Headings
+
+`TypoHeading` is the generic heading primitive; `TypoH1` ... `TypoH6` are semantic
+wrappers around it.
+
+```tsx
+<TypoH1>Primary page title</TypoH1>
+<TypoH2>Section heading</TypoH2>
+<TypoH3>Subsection heading</TypoH3>
+<TypoH4>Minor heading</TypoH4>
+<TypoH5>Eyebrow-like heading</TypoH5>
+<TypoH6>Body-sized heading</TypoH6>
+```
+
+How heading sizing works:
+
+- Brockmann computes seven internal scale steps: `0` ... `6`
+- semantic headings map onto those steps as `h1 -> 6`, `h2 -> 4`, `h3 -> 3`, `h4 -> 2`, `h5 -> 1`, `h6 -> 0`
+- `h6` intentionally sits at body size
+- top and bottom margins are derived from the computed heading size; package spacing is canonical
+- headings are lowercase by default through `--typo-heading-text-transform`, not per-component overrides
+
+If a page title or section heading must sit precisely on the baseline grid, opt into
+`snapToGridBottom`.
+
+```tsx
+<TypoH1 snapToGridBottom>Grid systems in graphic design</TypoH1>
+```
+
+This only adjusts bottom/baseline treatment. It does not remove normal heading top space.
+
+### 3. Running text
+
+`TypoBody` is the default paragraph primitive for longform editorial text.
+
+```tsx
+<TypoBody>
+    Brockmann keeps body copy at the configured base size and derives line height from
+    the system ratio.
+</TypoBody>
+```
+
+Behavior:
+
+- body size comes from `--typo-base-size`
+- line height comes from `--typo-body-line-height`
+- paragraph spacing comes from `--typo-paragraph-space`
+- max line length uses `--typo-measure` and defaults to `75%` unless the preset overrides it
+- hyphenation and hanging punctuation are enabled for prose-friendly wrapping
+
+### 4. Small text
+
+Use `TypoCaption` for captions and secondary small text. Use `TypoMeta` for compact
+uppercase labels built on top of the caption sizing.
+
+```tsx
+<TypoCaption>Figure caption, note, or secondary context.</TypoCaption>
+<TypoCaption align="end">Right-aligned caption.</TypoCaption>
+<TypoMeta>Updated weekly</TypoMeta>
+```
+
+Behavior:
+
+- `TypoCaption` uses `--typo-caption-size` and `--typo-caption-line-height`
+- `TypoMeta` reuses caption metrics and adds uppercase text treatment
+- `TypoCaption` supports `as="p" | "span" | "div" | "figcaption"`
+- `TypoMeta` supports `as="p" | "span" | "div" | "dt"`
+
+### 5. Lists
+
+`TypoList` and `TypoListItem` keep list spacing and copy metrics aligned with the body
+system.
+
+```tsx
+<TypoList>
+    <TypoListItem>Unordered item</TypoListItem>
+    <TypoListItem>Second item</TypoListItem>
+</TypoList>
+
+<TypoList ordered>
+    <TypoListItem>Ordered item</TypoListItem>
+    <TypoListItem>Second item</TypoListItem>
+</TypoList>
+```
+
+Behavior:
+
+- unordered lists default to `disc`
+- `ordered` switches the root element to `ol` and the marker style to decimal
+- list items inherit the body size and body line-height contract
+- left padding follows the baseline grid
+
+### 6. Figures
+
+`TypoFigure` is the package-owned image and caption wrapper. Use it when the package
+should own spacing between media and text.
+
+```tsx
+<TypoFigure
+    src="/images/specimen.jpg"
+    alt="Typographic specimen"
+    caption="Caption text set in the shared small-text style."
+/>
+```
+
+Behavior:
+
+- figure block spacing uses `--typo-figure-space`
+- image width is fluid by default
+- caption spacing uses `--typo-caption-gap`
+- `captionClassName` and `imageClassName` let apps layer additional styling without replacing the primitive
+
+### 7. Editorial links
+
+`TypoEditorialLink` is the shared text-first link primitive for navigation and editorial
+metadata zones.
+
+```tsx
+<TypoEditorialLink href="/notes">Notes</TypoEditorialLink>
+<TypoEditorialLink href="/books" active>
+    Books
+</TypoEditorialLink>
+```
+
+Behavior:
+
+- default state has no underline
+- hover/focus adds underline
+- `active` sets `data-active="true"` and switches to the active color
+- `aria-current="page"` receives the same active styling
+
+### Full specimen
+
+```tsx
+import {
+    TypoBody,
+    TypoCaption,
+    TypoEditorialLink,
+    TypoFigure,
+    TypoH1,
+    TypoH2,
+    TypoH3,
+    TypoH4,
+    TypoH5,
+    TypoH6,
+    TypoList,
+    TypoListItem,
+    TypoMeta,
+    TypoRoot,
+} from "@derklinke/brockmann";
+
+import "@derklinke/brockmann/styles/tokens.css";
+import "@derklinke/brockmann/styles/spacing.css";
+import "@derklinke/brockmann/styles/core.css";
+import "@derklinke/brockmann/styles/presets/site.css";
+
+export function TypoSpecimen() {
+    return (
+        <TypoRoot as="article" className="typo-preset-site">
+            <TypoMeta>Typography specimen</TypoMeta>
+            <TypoH1 snapToGridBottom>Heading level one</TypoH1>
+            <TypoBody>
+                Body copy carries the canonical editorial line-height, spacing, and wrapping
+                rules for Brockmann surfaces.
+            </TypoBody>
+
+            <TypoH2>Heading level two</TypoH2>
+            <TypoH3>Heading level three</TypoH3>
+            <TypoH4>Heading level four</TypoH4>
+            <TypoH5>Heading level five</TypoH5>
+            <TypoH6>Heading level six</TypoH6>
+
+            <TypoCaption>Caption style for supporting context.</TypoCaption>
+
+            <TypoList>
+                <TypoListItem>List item one</TypoListItem>
+                <TypoListItem>List item two</TypoListItem>
+            </TypoList>
+
+            <TypoFigure
+                src="/images/specimen.jpg"
+                alt="Specimen"
+                caption="Figures keep shared spacing and caption treatment."
+            />
+
+            <TypoEditorialLink href="/archive">Open archive</TypoEditorialLink>
+        </TypoRoot>
+    );
+}
+```
+
 ## Defaults
 
 - neutral text/font tokens live in `styles/tokens.css`
@@ -66,6 +291,47 @@ export function Example() {
 - headings lowercase by default and can be disabled globally via `lowercaseHeadings={false}` on `TypoRoot`
 - the grid debug runtime owns overlay state, persistence, and toggle synchronization
 - `TypoFigure` is the shared figure/image wrapper for package-owned spacing
+- `TypoCaption` is the shared small-text/caption primitive; alignment stays opt-in
+- `TypoMeta` is the shared compact uppercase metadata label primitive
+- `TypoEditorialLink` is the shared text-first editorial/navigation link primitive
+- `TypoBody`, `TypoList`, and `TypoFigure` default to `max-width: var(--typo-measure, 75%)`
+
+## Presets and headless helpers
+
+Use generated preset CSS when you want stable checked-in metrics:
+
+```tsx
+import "@derklinke/brockmann/styles/presets/site.css";
+
+<TypoRoot className="typo-preset-site">{/* ... */}</TypoRoot>;
+```
+
+Use runtime config helpers when you need dynamic values or non-React integration:
+
+```ts
+import {
+    createTypoConfig,
+    getTypoVarMap,
+    renderTypoPresetVarsCss,
+    serializeTypoVars,
+} from "@derklinke/brockmann";
+
+const config = createTypoConfig({
+    baseSize: 16,
+    r: 1.25,
+    lowercaseHeadings: false,
+});
+
+const vars = getTypoVarMap(config);
+const inlineStyle = serializeTypoVars(config);
+const css = renderTypoPresetVarsCss({
+    selector: ".typo-preset-specimen",
+    config: { baseSize: 16, r: 1.25, lowercaseHeadings: false },
+});
+```
+
+`TypoRoot` already does this inline variable injection by default. Reach for the headless
+helpers only when React is not the right integration layer.
 
 ## Current rules
 

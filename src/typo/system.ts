@@ -22,6 +22,10 @@ export interface TypoConfig extends TypoBaseConfig {
     captionGap: number;
     captionSize: number;
     captionLineHeight: number;
+    metaSize: number;
+    metaLineHeight: number;
+    editorialLinkSize: number;
+    editorialLinkLineHeight: number;
     gridGutterMultiplier: number;
     gridGutterWideMultiplier: number;
     lowercaseHeadings: boolean;
@@ -55,7 +59,7 @@ export function createTypoConfig({
     const bodyLineHeight = baseSize * r ** 2;
     const baselineGrid = bodyLineHeight;
     const paragraphSpace = alpha * baselineGrid;
-    const captionSize = baseSize / r ** 2;
+    const captionSize = baseSize / r;
     const steps = {
         0: baseSize,
         1: baseSize * r,
@@ -85,7 +89,11 @@ export function createTypoConfig({
         figureSpace: paragraphSpace * 2,
         captionGap: paragraphSpace / r,
         captionSize,
-        captionLineHeight: baselineGrid,
+        captionLineHeight: baseSize,
+        metaSize: captionSize,
+        metaLineHeight: baseSize,
+        editorialLinkSize: captionSize,
+        editorialLinkLineHeight: baseSize,
         gridGutterMultiplier: DEFAULT_GRID_GUTTER_MULTIPLIER,
         gridGutterWideMultiplier: DEFAULT_GRID_GUTTER_WIDE_MULTIPLIER,
         lowercaseHeadings,
@@ -133,6 +141,10 @@ function buildTypoVarMap(config: Omit<TypoConfig, "vars"> | TypoConfig): Record<
         "--typo-caption-gap": `${config.captionGap}px`,
         "--typo-caption-size": `${config.captionSize}px`,
         "--typo-caption-line-height": `${config.captionLineHeight}px`,
+        "--typo-meta-size": `${config.metaSize}px`,
+        "--typo-meta-line-height": `${config.metaLineHeight}px`,
+        "--typo-editorial-link-size": `${config.editorialLinkSize}px`,
+        "--typo-editorial-link-line-height": `${config.editorialLinkLineHeight}px`,
         "--typo-heading-text-transform": config.lowercaseHeadings ? "lowercase" : "none",
         "--grid-gutter": `calc(${config.baselineGrid}px * ${config.gridGutterMultiplier})`,
         "--grid-gutter-wide": `calc(${config.baselineGrid}px * ${config.gridGutterWideMultiplier})`,

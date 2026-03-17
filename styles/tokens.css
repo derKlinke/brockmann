@@ -18,6 +18,7 @@
     --ral-8022: var(--brockmann-color-ral-8022);
     --ral-9007: var(--brockmann-color-ral-9007);
     --ral-9016: var(--brockmann-color-ral-9016);
+    --brockmann-space-step: calc(var(--typo-baseline-grid) * 0.125);
 }
 
 @utility text-ral-9005 {

@@ -7,10 +7,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
     Grid,
     GridItem,
+    Spacer,
     renderTypoPresetVarsCss,
     SITE_TYPO_PRESET_CONFIG,
     SITE_TYPO_PRESET_SELECTOR,
+    TypoCaption,
+    TypoEditorialLink,
     TypoH1,
+    TypoMeta,
     TypoRoot,
     createTypoConfig,
     DEFAULT_TYPO_BASE_SIZE,
@@ -272,6 +276,8 @@ test("derives grid gutters from the baseline grid", () => {
     assert.equal(config.headings[2].size, config.steps[4]);
     assert.equal(config.headings[6].size, config.steps[0]);
     assert.equal(config.vars["--typo-step-0"], `${config.steps[0]}px`);
+    assert.equal(config.vars["--typo-meta-size"], `${config.metaSize}px`);
+    assert.equal(config.vars["--typo-editorial-link-size"], `${config.editorialLinkSize}px`);
 });
 
 test("uses 13px as the default Brockmann base size", () => {
@@ -326,6 +332,39 @@ test("renders snap-to-grid headings and single-column row-only grids", () => {
     assert.match(heading, /typo-heading-snap-grid-bottom/);
     assert.match(grid, /--brockmann-grid-columns-md:1/);
     assert.match(grid, /data-brockmann-grid-rows-only/);
+});
+
+test("renders generic meta and editorial link primitives", () => {
+    const caption = renderToStaticMarkup(
+        React.createElement(TypoCaption, { as: "span" }, "caption")
+    );
+    const meta = renderToStaticMarkup(
+        React.createElement(TypoMeta, { as: "span", className: "eyebrow" }, "label")
+    );
+    const link = renderToStaticMarkup(
+        React.createElement(
+            TypoEditorialLink,
+            { href: "/notes", active: true, className: "nav-link" },
+            "notes"
+        )
+    );
+
+    assert.match(caption, /class="typo-caption"/);
+    assert.match(meta, /typo-caption/);
+    assert.match(meta, /typo-meta/);
+    assert.match(meta, /eyebrow/);
+    assert.match(link, /class="typo-editorial-link typo-editorial-link-active nav-link"/);
+    assert.match(link, /data-active="true"/);
+});
+
+test("renders spacers from baseline-grid multiples", () => {
+    const spacer = renderToStaticMarkup(
+        React.createElement(Spacer, { multiple: 3, className: "section-gap" })
+    );
+
+    assert.match(spacer, /class="brockmann-spacer section-gap"/);
+    assert.match(spacer, /aria-hidden="true"/);
+    assert.match(spacer, /--brockmann-spacer-multiple:3/);
 });
 
 test("allows opting out of lowercase headings at the root config level", () => {

@@ -1,5 +1,8 @@
 export {
+    Spacer,
     TypoBody,
+    TypoCaption,
+    TypoEditorialLink,
     TypoFigure,
     TypoH1,
     TypoH2,
@@ -10,12 +13,19 @@ export {
     TypoHeading,
     TypoList,
     TypoListItem,
+    TypoMeta,
+    TypoPre,
     TypoRoot,
+    type SpacerProps,
     type TypoBodyProps,
+    type TypoCaptionProps,
+    type TypoEditorialLinkProps,
     type TypoFigureProps,
     type TypoHeadingProps,
     type TypoListItemProps,
     type TypoListProps,
+    type TypoMetaProps,
+    type TypoPreProps,
     type TypoRootProps,
 } from "./typo/components";
 export { Grid, GridBase, GridItem, type GridItemProps, type GridProps } from "./grid/components";

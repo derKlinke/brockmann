@@ -26,11 +26,32 @@ export interface TypoHeadingProps extends React.HTMLAttributes<HTMLHeadingElemen
 
 export interface TypoBodyProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
+export interface TypoCaptionProps extends React.HTMLAttributes<HTMLElement> {
+    as?: "div" | "figcaption" | "p" | "span";
+    align?: "end" | "start";
+}
+
+export interface TypoMetaProps extends React.HTMLAttributes<HTMLElement> {
+    as?: "div" | "dt" | "p" | "span";
+}
+
+export interface TypoPreProps extends React.HTMLAttributes<HTMLPreElement> {}
+
 export interface TypoListProps extends React.HTMLAttributes<HTMLElement> {
     ordered?: boolean;
 }
 
 export interface TypoListItemProps extends React.LiHTMLAttributes<HTMLLIElement> {}
+
+export interface TypoEditorialLinkProps
+    extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    active?: boolean;
+}
+
+export interface SpacerProps extends React.HTMLAttributes<HTMLElement> {
+    as?: TypoTag;
+    multiple?: number;
+}
 
 export interface TypoFigureProps extends React.HTMLAttributes<HTMLElement> {
     src: string;
@@ -143,6 +164,40 @@ export const TypoBody = React.forwardRef<HTMLParagraphElement, TypoBodyProps>(
     }
 );
 
+export const TypoCaption = React.forwardRef<HTMLElement, TypoCaptionProps>(function TypoCaption(
+    { as = "p", align = "start", className = "", ...rest },
+    ref
+): React.ReactElement {
+    const Tag = as as React.ElementType;
+
+    return (
+        <Tag
+            ref={ref as React.Ref<HTMLElement>}
+            className={joinClassNames(
+                "typo-caption",
+                align === "end" ? "typo-caption-align-end" : "",
+                className
+            )}
+            {...rest}
+        />
+    );
+});
+
+export const TypoMeta = React.forwardRef<HTMLElement, TypoMetaProps>(function TypoMeta(
+    { as = "p", className = "", ...rest },
+    ref
+): React.ReactElement {
+    const Tag = as as React.ElementType;
+
+    return (
+        <Tag
+            ref={ref as React.Ref<HTMLElement>}
+            className={joinClassNames("typo-caption", "typo-meta", className)}
+            {...rest}
+        />
+    );
+});
+
 export const TypoList = React.forwardRef<HTMLElement, TypoListProps>(
     function TypoList({ ordered = false, className = "", ...rest }, ref): React.ReactElement {
         const Tag = (ordered ? "ol" : "ul") as React.ElementType;
@@ -168,6 +223,54 @@ export const TypoListItem = React.forwardRef<HTMLLIElement, TypoListItemProps>(
         );
     }
 );
+
+export const TypoPre = React.forwardRef<HTMLPreElement, TypoPreProps>(function TypoPre(
+    { className = "", ...rest },
+    ref
+): React.ReactElement {
+    return <pre ref={ref} className={joinClassNames("typo-pre", className)} {...rest} />;
+});
+
+export const TypoEditorialLink = React.forwardRef<HTMLAnchorElement, TypoEditorialLinkProps>(
+    function TypoEditorialLink(
+        { active = false, className = "", ...rest },
+        ref
+    ): React.ReactElement {
+        return (
+            <a
+                ref={ref}
+                className={joinClassNames(
+                    "typo-editorial-link",
+                    active ? "typo-editorial-link-active" : "",
+                    className
+                )}
+                data-active={active ? "true" : undefined}
+                {...rest}
+            />
+        );
+    }
+);
+
+export const Spacer = React.forwardRef<HTMLElement, SpacerProps>(function Spacer(
+    { as = "div", multiple = 1, className = "", style, ...rest },
+    ref
+): React.ReactElement {
+    const Tag = as as React.ElementType;
+    const mergedStyle = {
+        ...style,
+        "--brockmann-spacer-multiple": `${multiple}`,
+    } as React.CSSProperties;
+
+    return (
+        <Tag
+            ref={ref as React.Ref<HTMLElement>}
+            aria-hidden={rest["aria-hidden"] ?? true}
+            className={joinClassNames("brockmann-spacer", className)}
+            style={mergedStyle}
+            {...rest}
+        />
+    );
+});
 
 export const TypoFigure = React.forwardRef<HTMLElement, TypoFigureProps>(
     function TypoFigure(
@@ -201,7 +304,12 @@ export const TypoFigure = React.forwardRef<HTMLElement, TypoFigureProps>(
                 />
                 {caption ? (
                     <figcaption
-                        className={joinClassNames("typo-figure-caption", captionClassName)}
+                        className={joinClassNames(
+                            "typo-caption",
+                            "typo-caption-align-end",
+                            "typo-figure-caption",
+                            captionClassName
+                        )}
                     >
                         {caption}
                     </figcaption>

@@ -3,9 +3,13 @@
     --typo-body-color: var(--ral-8022);
     --typo-heading-color: var(--ral-9005);
     --typo-caption-color: var(--ral-9007);
+    --typo-meta-color: var(--ral-9007);
     --typo-link-color: var(--chart-2);
     --typo-link-visited-color: var(--chart-1);
     --typo-link-hover-color: var(--chart-3);
+    --typo-editorial-link-color: var(--ral-9007);
+    --typo-editorial-link-hover-color: var(--ral-9005);
+    --typo-editorial-link-active-color: var(--ral-9005);
     --typo-font-body: var(--body-font);
     --typo-font-heading: var(--heading-font);
     --typo-measure: 100%;
