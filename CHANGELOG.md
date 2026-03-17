@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/derKlinke/brockmann/compare/v1.1.0...v1.2.0) (2026-03-17)
+
+
+### Features
+
+* add editorial typography primitives ([a13c18c](https://github.com/derKlinke/brockmann/commit/a13c18c1004d98e0e8dc0b7c114a8756fd45fd0f))
+
 # [1.1.0](https://github.com/derKlinke/brockmann/compare/v1.0.1...v1.1.0) (2026-03-16)
 
 
