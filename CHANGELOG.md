@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/derKlinke/brockmann/compare/v1.2.0...v1.3.0) (2026-03-19)
+
+
+### Features
+
+* add shared code block primitives ([4c99423](https://github.com/derKlinke/brockmann/commit/4c994237404c515a7d1f732f8586dc869fdcd089))
+
 # [1.2.0](https://github.com/derKlinke/brockmann/compare/v1.1.0...v1.2.0) (2026-03-17)
 
 
