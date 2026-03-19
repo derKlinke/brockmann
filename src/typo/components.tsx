@@ -37,6 +37,15 @@ export interface TypoMetaProps extends React.HTMLAttributes<HTMLElement> {
 
 export interface TypoPreProps extends React.HTMLAttributes<HTMLPreElement> {}
 
+export interface TypoCodeBlockProps extends React.HTMLAttributes<HTMLElement> {
+    language?: string;
+    label?: string;
+    copyValue?: string;
+    preClassName?: string;
+    codeClassName?: string;
+    captionClassName?: string;
+}
+
 export interface TypoListProps extends React.HTMLAttributes<HTMLElement> {
     ordered?: boolean;
 }
@@ -231,6 +240,77 @@ export const TypoPre = React.forwardRef<HTMLPreElement, TypoPreProps>(function T
     return <pre ref={ref} className={joinClassNames("typo-pre", className)} {...rest} />;
 });
 
+export const TypoCodeBlock = React.forwardRef<HTMLElement, TypoCodeBlockProps>(
+    function TypoCodeBlock(
+        {
+            language,
+            label,
+            copyValue,
+            className = "",
+            preClassName = "",
+            codeClassName = "",
+            captionClassName = "",
+            children,
+            ...rest
+        },
+        ref
+    ): React.ReactElement {
+        const rawCode = copyValue ?? flattenTextContent(children);
+
+        return (
+            <figure
+                ref={ref as React.Ref<HTMLElement>}
+                className={joinClassNames("typo-figure", "typo-code-block", className)}
+                data-code-raw={rawCode || undefined}
+                data-code-language={language}
+                {...rest}
+            >
+                <div className="typo-code-block-toolbar">
+                    {language ? (
+                        <span className="typo-code-block-language" aria-hidden="true">
+                            {language}
+                        </span>
+                    ) : null}
+                    <button
+                        type="button"
+                        className="typo-code-block-copy"
+                        data-code-copy-button
+                        aria-label={language ? `Copy ${language} code` : "Copy code"}
+                    >
+                        [ copy ]
+                    </button>
+                </div>
+                <pre
+                    className={joinClassNames("typo-code-block-pre", preClassName)}
+                    data-code-language={language}
+                >
+                    <code
+                        className={joinClassNames(
+                            "typo-code-block-code",
+                            language ? `language-${language}` : "",
+                            codeClassName
+                        )}
+                    >
+                        {children}
+                    </code>
+                </pre>
+                {label ? (
+                    <figcaption
+                        className={joinClassNames(
+                            "typo-caption",
+                            "typo-figure-caption",
+                            "typo-code-block-caption",
+                            captionClassName
+                        )}
+                    >
+                        {label}
+                    </figcaption>
+                ) : null}
+            </figure>
+        );
+    }
+);
+
 export const TypoEditorialLink = React.forwardRef<HTMLAnchorElement, TypoEditorialLinkProps>(
     function TypoEditorialLink(
         { active = false, className = "", ...rest },
@@ -321,4 +401,18 @@ export const TypoFigure = React.forwardRef<HTMLElement, TypoFigureProps>(
 
 function joinClassNames(...values: Array<string | undefined>): string {
     return values.filter(Boolean).join(" ");
+}
+
+function flattenTextContent(node: React.ReactNode): string {
+    if (node == null || typeof node === "boolean") return "";
+    if (typeof node === "string" || typeof node === "number") return String(node);
+    if (Array.isArray(node)) {
+        return node.map((child) => flattenTextContent(child)).join("");
+    }
+
+    if (React.isValidElement(node)) {
+        return flattenTextContent(node.props.children);
+    }
+
+    return "";
 }

@@ -61,4 +61,19 @@
     --typo-font-body: var(--body-font);
     --typo-font-heading: var(--heading-font);
     --typo-measure: 100%;
+    --typo-code-inline-color: var(--ral-9005);
+    --typo-code-block-background: var(--ral-9016);
+    --typo-code-block-color: var(--ral-8022);
+    --typo-code-block-caption-color: var(--ral-9007);
+    --typo-code-block-language-color: var(--ral-9007);
+    --typo-code-block-padding-block: var(--typo-paragraph-space);
+    --typo-code-block-padding-inline: var(--typo-paragraph-space);
+    --typo-code-block-copy-button-height: 1rem;
+    --typo-code-block-copy-button-min-width: 10ch;
+    --typo-code-block-copy-button-offset: 0.25rem;
+    --typo-code-token-comment: var(--ral-9007);
+    --typo-code-token-punctuation: var(--ral-9007);
+    --typo-code-token-keyword: var(--ral-9005);
+    --typo-code-token-symbol: var(--ral-8022);
+    --typo-code-token-literal: var(--ral-8022);
 }

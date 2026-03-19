@@ -131,6 +131,173 @@
     font-family: var(--mono-font, var(--typo-font-body, inherit));
     font-size: var(--typo-caption-size);
     line-height: calc(var(--typo-body-line-height) / var(--typo-caption-size));
+    text-indent: 0;
+    @apply b-ps-0;
+}
+
+.typo-inline-code {
+    color: var(--typo-code-inline-color, var(--typo-heading-color, currentColor));
+    font-family: var(--mono-font, var(--typo-font-body, inherit));
+    font-size: 0.92em;
+}
+
+.typo-code-block {
+    position: relative;
+    max-width: 100%;
+}
+
+.typo-code-block-pre {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 0;
+    padding-right: var(--typo-code-block-padding-inline, var(--typo-paragraph-space));
+    padding-bottom: var(--typo-code-block-padding-block, var(--typo-paragraph-space));
+    padding-left: var(--typo-code-block-padding-inline, var(--typo-paragraph-space));
+    padding-top: calc(
+        var(--typo-code-block-padding-block, var(--typo-paragraph-space)) +
+            var(--typo-code-block-copy-button-height, 1.8rem) +
+            var(--typo-code-block-copy-button-offset, 0.5rem)
+    );
+    background: var(--typo-code-block-background, var(--ral-9016));
+    color: var(--typo-code-block-color, var(--typo-body-color, currentColor));
+    font-family: var(--mono-font, var(--typo-font-body, inherit));
+    font-size: var(--typo-base-size);
+    line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
+    tab-size: 4;
+    text-indent: 0;
+    white-space: pre;
+}
+
+.typo-code-block-code {
+    display: block;
+    width: fit-content;
+    min-width: 100%;
+    color: inherit;
+    font: inherit;
+    white-space: inherit;
+}
+
+.typo-code-block-toolbar {
+    position: absolute;
+    top: var(--typo-code-block-padding-block, var(--typo-paragraph-space));
+    left: var(--typo-code-block-padding-inline, var(--typo-paragraph-space));
+    right: var(--typo-code-block-padding-inline, var(--typo-paragraph-space));
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.typo-code-block-language {
+    color: var(--typo-code-block-language-color, var(--typo-caption-color, currentColor));
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-caption-size);
+    line-height: 1;
+    text-transform: lowercase;
+}
+
+.typo-code-block-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: var(--typo-code-block-copy-button-min-width, 10ch);
+    height: var(--typo-code-block-copy-button-height, 1rem);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--typo-code-block-copy-button-color, var(--ral-9005));
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-caption-size);
+    line-height: 1;
+    text-align: right;
+    text-transform: lowercase;
+    cursor: pointer;
+}
+
+.typo-code-block-copy:hover,
+.typo-code-block-copy:focus-visible {
+    outline: none;
+}
+
+.typo-code-block-copy[data-copied="true"] {
+    color: var(--typo-code-block-copy-button-color, var(--ral-9005));
+}
+
+.typo-code-block-caption {
+    color: var(--typo-code-block-caption-color, var(--typo-caption-color, currentColor));
+    text-align: start;
+    text-transform: lowercase;
+}
+
+.typo-code-block :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+    color: var(--typo-code-token-comment, var(--ral-9007));
+    font-style: italic;
+}
+
+.typo-code-block :is(.token.punctuation, .token.operator, .token.entity) {
+    color: var(--typo-code-token-punctuation, var(--ral-9007));
+}
+
+.typo-code-block
+    :is(
+        .token.keyword,
+        .token.atrule,
+        .token.boolean,
+        .token.constant,
+        .token.builtin,
+        .token.important,
+        .token.selector,
+        .token.tag
+    ) {
+    color: var(--typo-code-token-keyword, var(--ral-9005));
+    font-weight: 600;
+}
+
+.typo-code-block
+    :is(
+        .token.function,
+        .token.function-variable,
+        .token.class-name,
+        .token.property,
+        .token.attr-name,
+        .token.namespace,
+        .token.symbol
+    ) {
+    color: var(--typo-code-token-symbol, var(--ral-8022));
+    font-weight: 500;
+}
+
+.typo-code-block
+    :is(
+        .token.string,
+        .token.char,
+        .token.attr-value,
+        .token.regex,
+        .token.url,
+        .token.number,
+        .token.unit
+    ) {
+    color: var(--typo-code-token-literal, var(--ral-8022));
+}
+
+.typo-code-block :is(.token.inserted, .token.deleted, .token.important) {
+    padding-inline: 0.1em;
+}
+
+.typo-code-block .token.inserted {
+    background: var(
+        --typo-code-token-inserted-background,
+        color-mix(in oklab, var(--ral-9007) 14%, var(--ral-9016))
+    );
+}
+
+.typo-code-block .token.deleted {
+    background: var(
+        --typo-code-token-deleted-background,
+        color-mix(in oklab, var(--ral-8022) 12%, var(--ral-9016))
+    );
 }
 
 .typo-list {
