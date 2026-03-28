@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/derKlinke/brockmann/compare/v1.3.1...v1.3.2) (2026-03-28)
+
+
+### Bug Fixes
+
+* narrow valid element props for text flattening ([cb59ded](https://github.com/derKlinke/brockmann/commit/cb59ded3c67b81a2041392a8ed104a3e813087ec))
+
 ## [1.3.1](https://github.com/derKlinke/brockmann/compare/v1.3.0...v1.3.1) (2026-03-28)
 
 
