@@ -302,6 +302,21 @@ export function TypoSpecimen() {
 }
 ```
 
+Rendered with the site preset:
+
+<p>
+  <img
+    src="./readme-assets/typo-specimen-page-1.png"
+    alt="Brockmann typography specimen showing a large headline with body copy and lower-level headings."
+    width="49%"
+  />
+  <img
+    src="./readme-assets/typo-specimen-page-2.png"
+    alt="Continuation of the Brockmann typography specimen showing lower-level headings, body copy, and a bullet list."
+    width="49%"
+  />
+</p>
+
 ## Defaults
 
 - neutral text/font tokens live in `styles/tokens.css`
