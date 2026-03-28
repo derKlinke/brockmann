@@ -317,6 +317,17 @@ test("keeps the site preset css generated from Brockmann math", () => {
     assert.match(presetSource, /--typo-body-color:/);
 });
 
+test("keeps browser-native typography defaults in the shared core stylesheet", () => {
+    const coreSource = fs.readFileSync(new URL("../styles/core.css", import.meta.url), "utf8");
+
+    assert.match(coreSource, /\.typo-heading[\s\S]*text-wrap: balance;/);
+    assert.match(coreSource, /\.typo-heading[\s\S]*overflow-wrap: normal;/);
+    assert.match(coreSource, /\.typo-body[\s\S]*text-wrap: pretty;/);
+    assert.match(coreSource, /\.typo-meta[\s\S]*font-variant-numeric:/);
+    assert.match(coreSource, /\.typo-hostile-string[\s\S]*overflow-wrap: anywhere;/);
+    assert.match(coreSource, /@supports \(text-box-trim: trim-both\)/);
+});
+
 test("renders snap-to-grid headings and single-column row-only grids", () => {
     const heading = renderToStaticMarkup(
         React.createElement(TypoH1, { snapToGridBottom: true }, "title")

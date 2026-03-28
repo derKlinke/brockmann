@@ -1,6 +1,8 @@
 [data-typo-root] {
     color: var(--typo-body-color, currentColor);
     font-family: var(--typo-font-body, inherit);
+    font-size-adjust: var(--typo-font-size-adjust-body, var(--brockmann-font-size-adjust-body, from-font));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
 }
 
 [data-typo-root] > :first-child:not(.typo-heading) {
@@ -72,11 +74,14 @@
     font-family: var(--typo-font-heading, var(--typo-font-body, inherit));
     font-size: var(--typo-heading-size);
     font-weight: 700;
+    font-size-adjust: var(--typo-font-size-adjust-heading, var(--brockmann-font-size-adjust-heading, from-font));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     letter-spacing: normal;
     line-height: 1;
     text-transform: var(--typo-heading-text-transform, lowercase);
     text-wrap: balance;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    hyphens: manual;
 }
 
 .typo-heading-snap-grid-bottom {
@@ -96,7 +101,7 @@
     line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
     text-align: start;
     overflow-wrap: normal;
-    text-wrap: wrap;
+    text-wrap: pretty;
     hanging-punctuation: first last;
     hyphenate-limit-chars: 6 3 2;
     hyphenate-limit-last: always;
@@ -112,6 +117,7 @@
     font-family: var(--typo-font-body, inherit);
     font-size: var(--typo-caption-size);
     font-weight: 400;
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     line-height: calc(var(--typo-caption-line-height) / var(--typo-caption-size));
 }
 
@@ -120,6 +126,8 @@
 }
 
 .typo-meta {
+    color: var(--typo-meta-color, var(--typo-caption-color, currentColor));
+    font-variant-numeric: var(--typo-font-variant-numeric-ui, var(--brockmann-font-variant-numeric-ui, tabular-nums lining-nums));
     text-transform: uppercase;
     text-wrap: balance;
 }
@@ -129,6 +137,8 @@
     @apply b-m-0;
     color: var(--typo-caption-color, currentColor);
     font-family: var(--mono-font, var(--typo-font-body, inherit));
+    font-size-adjust: var(--typo-font-size-adjust-mono, var(--brockmann-font-size-adjust-mono, from-font));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     font-size: var(--typo-caption-size);
     line-height: calc(var(--typo-body-line-height) / var(--typo-caption-size));
     text-indent: 0;
@@ -162,6 +172,8 @@
     background: var(--typo-code-block-background, var(--ral-9016));
     color: var(--typo-code-block-color, var(--typo-body-color, currentColor));
     font-family: var(--mono-font, var(--typo-font-body, inherit));
+    font-size-adjust: var(--typo-font-size-adjust-mono, var(--brockmann-font-size-adjust-mono, from-font));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     font-size: var(--typo-base-size);
     line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
     tab-size: 4;
@@ -194,6 +206,8 @@
     color: var(--typo-code-block-language-color, var(--typo-caption-color, currentColor));
     font-family: var(--typo-font-body, inherit);
     font-size: var(--typo-caption-size);
+    font-variant-numeric: var(--typo-font-variant-numeric-ui, var(--brockmann-font-variant-numeric-ui, tabular-nums lining-nums));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     line-height: 1;
     text-transform: lowercase;
 }
@@ -318,7 +332,9 @@
     font-family: var(--typo-font-body, inherit);
     font-size: var(--typo-base-size);
     font-weight: 400;
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
+    text-wrap: pretty;
     margin-bottom: calc(var(--typo-paragraph-space) * 0.5);
 }
 
@@ -332,6 +348,8 @@
     font-family: var(--typo-font-body, inherit);
     font-size: var(--typo-editorial-link-size, var(--typo-caption-size));
     font-weight: 400;
+    font-variant-numeric: var(--typo-font-variant-numeric-ui, var(--brockmann-font-variant-numeric-ui, tabular-nums lining-nums));
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
     line-height: calc(var(--typo-editorial-link-line-height, var(--typo-caption-line-height)) / var(--typo-editorial-link-size, var(--typo-caption-size)));
     text-decoration: none;
     text-decoration-thickness: from-font;
@@ -374,6 +392,22 @@
 
 .typo-figure-caption {
     margin-top: var(--typo-caption-gap);
+}
+
+.typo-hostile-string {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: manual;
+    text-wrap: wrap;
+}
+
+@supports (text-box-trim: trim-both) {
+    .typo-caption,
+    .typo-meta,
+    .typo-code-block-language {
+        text-box-trim: trim-both;
+        text-box-edge: cap alphabetic;
+    }
 }
 
 .brockmann-spacer {

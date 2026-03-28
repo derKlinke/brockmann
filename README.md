@@ -136,7 +136,9 @@ Behavior:
 - line height comes from `--typo-body-line-height`
 - paragraph spacing comes from `--typo-paragraph-space`
 - max line length uses `--typo-measure` and defaults to `75%` unless the preset overrides it
+- body copy prefers browser-native editorial wrapping through `text-wrap: pretty`
 - hyphenation and hanging punctuation are enabled for prose-friendly wrapping
+- optical sizing and fallback metric normalization are enabled by default
 
 ### 4. Small text
 
@@ -152,7 +154,7 @@ uppercase labels built on top of the caption sizing.
 Behavior:
 
 - `TypoCaption` uses `--typo-caption-size` and `--typo-caption-line-height`
-- `TypoMeta` reuses caption metrics and adds uppercase text treatment
+- `TypoMeta` reuses caption metrics, adds uppercase treatment, and uses tabular lining figures for UI-facing numbers
 - `TypoCaption` supports `as="p" | "span" | "div" | "figcaption"`
 - `TypoMeta` supports `as="p" | "span" | "div" | "dt"`
 
@@ -218,6 +220,27 @@ Behavior:
 - hover/focus adds underline
 - `active` sets `data-active="true"` and switches to the active color
 - `aria-current="page"` receives the same active styling
+- editorial links use tabular lining figures so dates and counters stay visually aligned
+
+### 8. Hostile strings
+
+When a surface needs to contain URLs, hashes, file names, or other hostile strings,
+opt into the shared containment helper instead of loosening the main prose primitives.
+
+```tsx
+<TypoBody>
+    Read the note at{" "}
+    <span className="typo-hostile-string">
+        /notes/really-long-pathnames-and-machine-generated-identifiers
+    </span>
+</TypoBody>
+```
+
+Behavior:
+
+- `typo-hostile-string` enables aggressive wrapping for non-editorial text
+- headings stay typography-first by default and no longer use arbitrary emergency breaks
+- progressive enhancement trims compact labels and captions when `text-box-trim` is supported, without collapsing navigation rhythm
 
 ### Full specimen
 

@@ -6,6 +6,11 @@
         "Berkeley Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono",
         "Courier New", monospace;
     --brockmann-font-heading: "PP Frama", "Helvetica", "Arial", sans-serif;
+    --brockmann-font-optical-sizing: auto;
+    --brockmann-font-size-adjust-body: from-font;
+    --brockmann-font-size-adjust-heading: from-font;
+    --brockmann-font-size-adjust-mono: from-font;
+    --brockmann-font-variant-numeric-ui: tabular-nums lining-nums;
     --brockmann-color-ral-9005: #0c0d0f;
     --brockmann-color-ral-8022: #2f3233;
     --brockmann-color-ral-9007: #71706d;
