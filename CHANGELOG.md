@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/derKlinke/brockmann/compare/v1.3.0...v1.3.1) (2026-03-28)
+
+
+### Bug Fixes
+
+* improve shared typography defaults ([2f99959](https://github.com/derKlinke/brockmann/commit/2f999592d2ddb865a2e296d9f5f542977b3671fb))
+
 # [1.3.0](https://github.com/derKlinke/brockmann/compare/v1.2.0...v1.3.0) (2026-03-19)
 
 
