@@ -410,7 +410,7 @@ function flattenTextContent(node: React.ReactNode): string {
         return node.map((child) => flattenTextContent(child)).join("");
     }
 
-    if (React.isValidElement(node)) {
+    if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
         return flattenTextContent(node.props.children);
     }
 
