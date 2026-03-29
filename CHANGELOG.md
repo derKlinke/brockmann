@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/derKlinke/brockmann/compare/v1.3.2...v1.4.0) (2026-03-29)
+
+
+### Features
+
+* add link list typography primitives ([177f617](https://github.com/derKlinke/brockmann/commit/177f617f6e2e2aacdc3ba2d4c25a44637a6f07ee))
+
 ## [1.3.2](https://github.com/derKlinke/brockmann/compare/v1.3.1...v1.3.2) (2026-03-28)
 
 
