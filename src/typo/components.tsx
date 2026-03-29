@@ -57,6 +57,17 @@ export interface TypoEditorialLinkProps
     active?: boolean;
 }
 
+export interface TypoLinkListProps extends React.HTMLAttributes<HTMLElement> {}
+
+export interface TypoLinkListItemProps
+    extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    active?: boolean;
+    indicator?: React.ReactNode;
+    itemClassName?: string;
+    contentClassName?: string;
+    indicatorClassName?: string;
+}
+
 export interface SpacerProps extends React.HTMLAttributes<HTMLElement> {
     as?: TypoTag;
     multiple?: number;
@@ -327,6 +338,59 @@ export const TypoEditorialLink = React.forwardRef<HTMLAnchorElement, TypoEditori
                 data-active={active ? "true" : undefined}
                 {...rest}
             />
+        );
+    }
+);
+
+export const TypoLinkList = React.forwardRef<HTMLElement, TypoLinkListProps>(
+    function TypoLinkList({ className = "", ...rest }, ref): React.ReactElement {
+        return (
+            <ul
+                ref={ref as React.Ref<HTMLElement>}
+                className={joinClassNames("typo-link-list", className)}
+                {...rest}
+            />
+        );
+    }
+);
+
+export const TypoLinkListItem = React.forwardRef<HTMLAnchorElement, TypoLinkListItemProps>(
+    function TypoLinkListItem(
+        {
+            active = false,
+            indicator = "[↗]",
+            className = "",
+            itemClassName = "",
+            contentClassName = "",
+            indicatorClassName = "",
+            children,
+            ...rest
+        },
+        ref
+    ): React.ReactElement {
+        return (
+            <li className={joinClassNames("typo-link-list-item", itemClassName)}>
+                <a
+                    ref={ref}
+                    className={joinClassNames(
+                        "typo-link-list-link",
+                        active ? "typo-link-list-link-active" : "",
+                        className
+                    )}
+                    data-active={active ? "true" : undefined}
+                    {...rest}
+                >
+                    <span className={joinClassNames("typo-link-list-copy", contentClassName)}>
+                        {children}
+                    </span>
+                    <span
+                        className={joinClassNames("typo-link-list-indicator", indicatorClassName)}
+                        aria-hidden="true"
+                    >
+                        {indicator}
+                    </span>
+                </a>
+            </li>
         );
     }
 );

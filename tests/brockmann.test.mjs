@@ -14,6 +14,8 @@ import {
     TypoCaption,
     TypoEditorialLink,
     TypoH1,
+    TypoLinkList,
+    TypoLinkListItem,
     TypoMeta,
     TypoRoot,
     createTypoConfig,
@@ -366,6 +368,36 @@ test("renders generic meta and editorial link primitives", () => {
     assert.match(meta, /eyebrow/);
     assert.match(link, /class="typo-editorial-link typo-editorial-link-active nav-link"/);
     assert.match(link, /data-active="true"/);
+});
+
+test("renders link-list primitives with indicator and active state", () => {
+    const list = renderToStaticMarkup(
+        React.createElement(
+            TypoLinkList,
+            { className: "resource-list" },
+            React.createElement(
+                TypoLinkListItem,
+                {
+                    href: "/notes",
+                    active: true,
+                    indicator: "[->]",
+                    itemClassName: "resource-item",
+                    contentClassName: "resource-copy",
+                    indicatorClassName: "resource-indicator",
+                    className: "resource-link",
+                },
+                "notes"
+            )
+        )
+    );
+
+    assert.match(list, /class="typo-link-list resource-list"/);
+    assert.match(list, /class="typo-link-list-item resource-item"/);
+    assert.match(list, /class="typo-link-list-link typo-link-list-link-active resource-link"/);
+    assert.match(list, /data-active="true"/);
+    assert.match(list, /class="typo-link-list-copy resource-copy"/);
+    assert.match(list, /class="typo-link-list-indicator resource-indicator"/);
+    assert.match(list, /\[->\]/);
 });
 
 test("renders spacers from baseline-grid multiples", () => {

@@ -378,6 +378,77 @@
     );
 }
 
+.typo-link-list {
+    display: block;
+    max-width: var(--typo-measure, 75%);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.typo-link-list-item {
+    list-style: none;
+    margin-bottom: calc(var(--typo-paragraph-space) * 0.5);
+}
+
+.typo-link-list-item:last-child {
+    @apply b-mb-0;
+}
+
+.typo-link-list-item::marker {
+    content: "";
+}
+
+.typo-link-list-link,
+[data-typo-root] a.typo-link-list-link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--grid-gutter-wide, var(--typo-paragraph-space));
+    align-items: baseline;
+    width: 100%;
+    min-width: 0;
+    color: var(--typo-link-color, currentColor);
+    font-family: var(--typo-font-body, inherit);
+    font-size: var(--typo-base-size);
+    font-weight: 400;
+    font-optical-sizing: var(--typo-font-optical-sizing, var(--brockmann-font-optical-sizing, auto));
+    line-height: calc(var(--typo-body-line-height) / var(--typo-base-size));
+    text-decoration: none;
+    text-underline-offset: 0.18em;
+}
+
+.typo-link-list-link:visited,
+[data-typo-root] a.typo-link-list-link:visited {
+    color: var(--typo-link-visited-color, var(--typo-link-color, currentColor));
+}
+
+.typo-link-list-link:hover,
+.typo-link-list-link:focus-visible,
+[data-typo-root] a.typo-link-list-link:hover,
+[data-typo-root] a.typo-link-list-link:focus-visible {
+    color: var(--typo-link-hover-color, var(--typo-link-color, currentColor));
+    text-decoration: underline;
+}
+
+.typo-link-list-link-active,
+.typo-link-list-link[aria-current="page"],
+.typo-link-list-link[data-active="true"],
+[data-typo-root] a.typo-link-list-link[aria-current="page"],
+[data-typo-root] a.typo-link-list-link[data-active="true"] {
+    color: var(--typo-heading-color, currentColor);
+}
+
+.typo-link-list-copy {
+    min-width: 0;
+}
+
+.typo-link-list-indicator {
+    justify-self: end;
+    white-space: nowrap;
+    color: currentColor;
+    text-decoration: none;
+}
+
 .typo-figure {
     display: block;
     max-width: var(--typo-measure, 75%);

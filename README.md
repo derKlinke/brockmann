@@ -11,6 +11,7 @@ grid construction and typographic discipline.
 - `TypoRoot`
 - `TypoHeading`, `TypoH1` through `TypoH6`
 - `TypoBody`, `TypoCaption`, `TypoMeta`
+- `TypoLinkList`, `TypoLinkListItem`
 - `TypoList`, `TypoListItem`
 - `Spacer`
 - `TypoFigure`
@@ -182,7 +183,32 @@ Behavior:
 - list items inherit the body size and body line-height contract
 - left padding follows the baseline grid
 
-### 6. Figures
+### 6. Link lists
+
+`TypoLinkList` and `TypoLinkListItem` provide the shared body-text link-list pattern for
+resource lists, notes indexes, sitemaps, and similar editorial inventories.
+
+```tsx
+<TypoLinkList>
+    <TypoLinkListItem href="/notes/dsp" indicator="[↗]">
+        Dynamic range compression
+    </TypoLinkListItem>
+    <TypoLinkListItem href="/notes/fft" indicator="[->]" active>
+        Fast Fourier transform
+    </TypoLinkListItem>
+</TypoLinkList>
+```
+
+Behavior:
+
+- list root removes bullets and marker gutter
+- item link uses body copy metrics, not editorial-link sizing
+- default state has no underline; hover/focus adds underline
+- `indicator` renders in a dedicated right-aligned track and defaults to `[↗]`
+- `active` sets `data-active="true"` and uses the heading color
+- `itemClassName`, `contentClassName`, and `indicatorClassName` allow route-level tuning without replacing the primitive
+
+### 7. Figures
 
 `TypoFigure` is the package-owned image and caption wrapper. Use it when the package
 should own spacing between media and text.
@@ -202,7 +228,7 @@ Behavior:
 - caption spacing uses `--typo-caption-gap`
 - `captionClassName` and `imageClassName` let apps layer additional styling without replacing the primitive
 
-### 7. Editorial links
+### 8. Editorial links
 
 `TypoEditorialLink` is the shared text-first link primitive for navigation and editorial
 metadata zones.
@@ -222,7 +248,7 @@ Behavior:
 - `aria-current="page"` receives the same active styling
 - editorial links use tabular lining figures so dates and counters stay visually aligned
 
-### 8. Hostile strings
+### 9. Hostile strings
 
 When a surface needs to contain URLs, hashes, file names, or other hostile strings,
 opt into the shared containment helper instead of loosening the main prose primitives.
